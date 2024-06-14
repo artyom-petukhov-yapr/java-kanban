@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class TaskManager {
     /**
+     * Значение для следующего идентификатора.
+     */
+    private int nextId = 0;
+
+    /**
      * Задачи
      */
     private final HashMap<Integer, Task> tasks = new HashMap<>();
@@ -31,10 +36,13 @@ public class TaskManager {
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     /**
-     * Генератор идентификаторов. Общий для задач, эпиков и подзадач.
-     * Таким образом идентификация во всех трех "типах" сквозная.
+     * Получить следующее значение идентификатора.
+     * Каждый следующий вызов возвращает значение на 1 больше, чем результат предыдущего вызова.
+     * @return следующее значение идентификатора (начиная с 0).
      */
-    private final IdGenerator idGenerator = new IdGenerator();
+    public int getNextId() {
+        return nextId++;
+    }
 
     /**
      * Получить все задачи типа {@link Task}
@@ -68,7 +76,7 @@ public class TaskManager {
      * @return Идентификатор задачи
      */
     public int addTask(Task task) {
-        task.setId(idGenerator.getNextId());
+        task.setId(getNextId());
         tasks.put(task.getId(), task);
         return task.getId();
     }
@@ -135,7 +143,7 @@ public class TaskManager {
      */
     public int addEpic(Epic epic) {
         // генерация id для эпика
-        epic.setId(idGenerator.getNextId());
+        epic.setId(getNextId());
         // очистка подзадач для эпика
         epic.clearSubtasks();
         // добавление эпика
@@ -261,7 +269,7 @@ public class TaskManager {
             // эпик не найден
             return null;
         }
-        subtask.setId(idGenerator.getNextId());
+        subtask.setId(getNextId());
         // добавление подзадачи
         subtasks.put(subtask.getId(), subtask);
         // добавление идентификатора подзадачи в данные эпика
