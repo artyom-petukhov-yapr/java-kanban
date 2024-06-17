@@ -5,43 +5,42 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Смоук-тесты для менеджера задач
+ * Тесты для менеджера задач по умолчанию
  */
-class TaskManagerTest {
+class DefaultTaskManagerTest {
     TaskManager taskManager;
+
     @BeforeEach
     void beforeEach() {
         // перед каждым тестом создаем новый менеджер задач
-        taskManager = new TaskManager();
+        taskManager = Managers.getDefault();
     }
 
     /**
      * После создания менеджера список задач пустой
      */
     @Test
-    void taskManager_ctor_tasksIsEmpty() {
-        Assertions.assertEquals(taskManager.getTasks().length, 0);
+    void ctor_tasksIsEmpty() {
+        Assertions.assertEquals(0, taskManager.getTasks().size());
     }
 
     /**
      * Добавление задачи -> В списке задач одна задача
      */
     @Test
-    void taskManager_addTask_tasksContainsOneTask() {
-        taskManager.addTask(createSampleTask(0));
-        Assertions.assertEquals(taskManager.getTasks().length, 1);
+    void addTask_tasksContainsOneTask() {
+        taskManager.addTask(TestTaskFactory.createSampleTask(0));
+
+        Assertions.assertEquals(1, taskManager.getTasks().size());
     }
 
     /**
      * Добавление задачи -> Для добавленной задачи был сгенерирован id
      */
     @Test
-    void taskManager_addTask_idGenerated() {
-        taskManager.addTask(createSampleTask(0));
-        Assertions.assertNotEquals(taskManager.getTasks()[0].getId(), Task.DEFAULT_ID);
-    }
+    void addTask_idGenerated() {
+        taskManager.addTask(TestTaskFactory.createSampleTask(0));
 
-    private Task createSampleTask(int index) {
-        return new Task("Task name " + index, "Task description " + index);
+        Assertions.assertNotEquals(Task.DEFAULT_ID, taskManager.getTasks().get(0).getId());
     }
 }
