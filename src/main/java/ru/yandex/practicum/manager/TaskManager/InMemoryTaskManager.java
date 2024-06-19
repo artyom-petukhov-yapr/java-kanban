@@ -1,4 +1,11 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.manager.TaskManager;
+
+import ru.yandex.practicum.manager.Managers;
+import ru.yandex.practicum.manager.historyManager.HistoryManager;
+import ru.yandex.practicum.manager.model.Epic;
+import ru.yandex.practicum.manager.model.Subtask;
+import ru.yandex.practicum.manager.model.Task;
+import ru.yandex.practicum.manager.model.TaskState;
 
 import java.util.ArrayList;
 import java.util.HashMap;

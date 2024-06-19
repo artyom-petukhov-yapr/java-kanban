@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.manager.model;
 
 /**
  * Отдельно стоящая задача, не входящая в эпик.
@@ -37,7 +37,7 @@ public class Task {
     /**
      * Установить идентификатор
      */
-    final void setId(int id) {
+    public final void setId(int id) {
         this.id = id;
     }
 

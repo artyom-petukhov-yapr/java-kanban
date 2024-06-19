@@ -1,4 +1,8 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.manager.TaskManager;
+
+import ru.yandex.practicum.manager.model.Epic;
+import ru.yandex.practicum.manager.model.Subtask;
+import ru.yandex.practicum.manager.model.Task;
 
 import java.util.List;
 

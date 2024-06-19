@@ -1,8 +1,15 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.manager.taskManager;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.yandex.practicum.manager.TestTaskFactory;
+import ru.yandex.practicum.manager.Managers;
+import ru.yandex.practicum.manager.TaskManager.TaskManager;
+import ru.yandex.practicum.manager.model.Epic;
+import ru.yandex.practicum.manager.model.Subtask;
+import ru.yandex.practicum.manager.model.Task;
+import ru.yandex.practicum.manager.model.TaskState;
 
 import java.util.List;
 

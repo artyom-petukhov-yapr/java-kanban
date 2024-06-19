@@ -1,8 +1,9 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.manager.historyManager;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.yandex.practicum.manager.TestTaskFactory;
 
 /**
  * Отдельные тесты для {@link InMemoryHistoryManager} для проверки его работы с лимитом хранения просмотров.

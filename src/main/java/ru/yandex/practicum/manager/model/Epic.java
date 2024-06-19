@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.manager.model;
 
 import java.util.HashSet;
 
@@ -37,7 +37,7 @@ public class Epic extends Task {
         return subtasksIds;
     }
 
-    void clearSubtasks() {
+    public void clearSubtasks() {
         subtasksIds.clear();
     }
 
@@ -45,7 +45,7 @@ public class Epic extends Task {
      * Заменить список подзадач на указанный.
      * @param subtasksIds
      */
-    void replaceSubtasks(HashSet<Integer> subtasksIds) {
+    public void replaceSubtasks(HashSet<Integer> subtasksIds) {
         this.subtasksIds.clear();
         this.subtasksIds.addAll(subtasksIds);
     }
