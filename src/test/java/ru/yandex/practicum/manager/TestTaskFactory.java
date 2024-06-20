@@ -1,8 +1,8 @@
 package ru.yandex.practicum.manager;
 
-import ru.yandex.practicum.manager.model.Epic;
-import ru.yandex.practicum.manager.model.Subtask;
-import ru.yandex.practicum.manager.model.Task;
+import ru.yandex.practicum.model.Epic;
+import ru.yandex.practicum.model.Subtask;
+import ru.yandex.practicum.model.Task;
 
 /**
  * Фабрика для создания задач/подзадач/эпиков.

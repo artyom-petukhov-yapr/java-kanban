@@ -1,4 +1,4 @@
-package ru.yandex.practicum.manager.historyManager;
+package ru.yandex.practicum.manager.history;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

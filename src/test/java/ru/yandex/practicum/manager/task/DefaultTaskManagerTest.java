@@ -1,12 +1,11 @@
-package ru.yandex.practicum.manager.taskManager;
+package ru.yandex.practicum.manager.task;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.manager.TestTaskFactory;
 import ru.yandex.practicum.manager.Managers;
-import ru.yandex.practicum.manager.TaskManager.TaskManager;
-import ru.yandex.practicum.manager.model.Task;
+import ru.yandex.practicum.model.Task;
 
 /**
  * Тесты для менеджера задач по умолчанию

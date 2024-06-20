@@ -1,4 +1,4 @@
-package ru.yandex.practicum.manager.model;
+package ru.yandex.practicum.model;
 
 /**
  * Отдельно стоящая задача, не входящая в эпик.

@@ -1,9 +1,9 @@
 package ru.yandex.practicum.manager;
 
-import ru.yandex.practicum.manager.TaskManager.InMemoryTaskManager;
-import ru.yandex.practicum.manager.TaskManager.TaskManager;
-import ru.yandex.practicum.manager.historyManager.HistoryManager;
-import ru.yandex.practicum.manager.historyManager.InMemoryHistoryManager;
+import ru.yandex.practicum.manager.task.InMemoryTaskManager;
+import ru.yandex.practicum.manager.task.TaskManager;
+import ru.yandex.practicum.manager.history.HistoryManager;
+import ru.yandex.practicum.manager.history.InMemoryHistoryManager;
 
 /**
  * Утилитарный класс для создания менеджеров

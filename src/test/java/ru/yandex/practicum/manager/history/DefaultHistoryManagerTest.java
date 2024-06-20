@@ -1,11 +1,11 @@
-package ru.yandex.practicum.manager.historyManager;
+package ru.yandex.practicum.manager.history;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.manager.TestTaskFactory;
 import ru.yandex.practicum.manager.Managers;
-import ru.yandex.practicum.manager.model.Task;
+import ru.yandex.practicum.model.Task;
 
 class DefaultHistoryManagerTest {
 

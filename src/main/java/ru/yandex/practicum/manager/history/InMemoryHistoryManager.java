@@ -1,6 +1,6 @@
-package ru.yandex.practicum.manager.historyManager;
+package ru.yandex.practicum.manager.history;
 
-import ru.yandex.practicum.manager.model.Task;
+import ru.yandex.practicum.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
