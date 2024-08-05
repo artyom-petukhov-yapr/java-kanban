@@ -23,7 +23,7 @@ class DefaultTaskManagerTest {
      * После создания менеджера список задач пустой
      */
     @Test
-    void ctor_tasksIsEmpty() {
+    void taskListIsEmptyAfterCreation() {
         Assertions.assertEquals(0, taskManager.getTasks().size());
     }
 
@@ -31,7 +31,7 @@ class DefaultTaskManagerTest {
      * Добавление задачи -> В списке задач одна задача
      */
     @Test
-    void addTask_tasksContainsOneTask() {
+    void tasksContainsOneTaskAfterAddingOneTask() {
         taskManager.addTask(TestTaskFactory.createSampleTask(0));
 
         Assertions.assertEquals(1, taskManager.getTasks().size());
@@ -41,7 +41,7 @@ class DefaultTaskManagerTest {
      * Добавление задачи -> Для добавленной задачи был сгенерирован id
      */
     @Test
-    void addTask_idGenerated() {
+    void idGeneratedAfterAddingTask() {
         taskManager.addTask(TestTaskFactory.createSampleTask(0));
 
         Assertions.assertNotEquals(Task.DEFAULT_ID, taskManager.getTasks().get(0).getId());

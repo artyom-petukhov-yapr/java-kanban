@@ -24,7 +24,7 @@ public class InMemoryHistoryManagerTest {
      * После создания менеджера список просмотров пустой
      */
     @Test
-    void ctor_historyIsEmpty() {
+    void historyIsEmptyAfterCreation() {
         Assertions.assertEquals(0, historyManager.getHistory().size());
     }
 
@@ -33,7 +33,7 @@ public class InMemoryHistoryManagerTest {
      * список просмотров должен содержать только одну задачу
      */
     @Test
-    void addTwoTasksWithEqualIds_historyContainsOnlyOneTask() {
+    void historyContainsOnlyOneTaskAfterAddingTwoTasksWithEqualIds() {
         // добавление 2х задач с ИД = 0
         historyManager.add(TestTaskFactory.createSampleTask(0));
         historyManager.add(TestTaskFactory.createSampleTask(0));
@@ -49,7 +49,7 @@ public class InMemoryHistoryManagerTest {
      * список просмотров должен содержать 2 задачи
      */
     @Test
-    void addTwoTasksWithEqualIds_historyContainsTwoTasks() {
+    void historyContainsTwoTasksAfterAddingThreeTasks() {
         // добавление 2х задач с ИД = 0
         historyManager.add(TestTaskFactory.createSampleTask(0));
         historyManager.add(TestTaskFactory.createSampleTask(0));
@@ -65,7 +65,7 @@ public class InMemoryHistoryManagerTest {
      * Повторное добавление в историю задачи, должно приводить к удалению из истории информации о её первом просмотре
      */
     @Test
-    void addSameTaskTwice_1stTaskViewInfoIsRemoved() {
+    void firstTaskViewInfoIsRemovedAfterAddingOfSameTaskTwice() {
         // добавление задачи с ИД = 0
         historyManager.add(TestTaskFactory.createSampleTask(0));
         // добавление задачи с ИД = 1
@@ -82,7 +82,7 @@ public class InMemoryHistoryManagerTest {
      * Удаление первой задачи из истории просмотров -> список просмотров начинается со второй задачи
      */
     @Test
-    void removeFirstTask_historyBeginsFromNextTask() {
+    void historyBeginsFromNextTaskAfterRemovingOfFirstTask() {
         // добавление задачи с ИД = 0
         historyManager.add(TestTaskFactory.createSampleTask(0));
         // добавление задачи с ИД = 1
@@ -100,7 +100,7 @@ public class InMemoryHistoryManagerTest {
      * Удаление последней задачи из истории просмотров -> список просмотров заканчивается предыдущей задачей
      */
     @Test
-    void removeLastTask_historyEndsWithPreviousTask() {
+    void historyEndsWithPreviousTaskAfterRemovingOfLastTask() {
         // добавление задачи с ИД = 0
         historyManager.add(TestTaskFactory.createSampleTask(0));
         // добавление задачи с ИД = 1
@@ -119,7 +119,7 @@ public class InMemoryHistoryManagerTest {
      * Удаление задачи из середины списка
      */
     @Test
-    void removeTaskFromMiddle_taskIsRemoved() {
+    void taskIsRemovedAfterRemovingOfTaskFromMiddleOfTheList() {
         // добавление 3х задач с идентификаторами 0, 1, 2
         historyManager.add(TestTaskFactory.createSampleTask(0));
         historyManager.add(TestTaskFactory.createSampleTask(1));
