@@ -20,12 +20,12 @@ class DefaultHistoryManagerTest {
      * После создания менеджера список просмотров пустой
      */
     @Test
-    void ctor_historyIsEmpty() {
+    void historyIsEmptyAfterCreation() {
         Assertions.assertEquals(0, historyManager.getHistory().size());
     }
 
     @Test
-    void addOneTask_historyContainsOneTask() {
+    void historyContainsOneTaskAfterAddingOneTask() {
         historyManager.add(TestTaskFactory.createSampleTask(0));
 
         Assertions.assertEquals(1, historyManager.getHistory().size());
@@ -35,7 +35,7 @@ class DefaultHistoryManagerTest {
      * Добавление 2х задач -> первая добавленная задача находится в начале списка, возвращаемого getHistory()
      */
     @Test
-    void addTwoTasks_firstTaskHasZeroIndexInHistory() {
+    void firstTaskHasZeroIndexInHistoryAfterAddingTwoTasks() {
         // добавление первой задачи
         Task firstTask = TestTaskFactory.createSampleTask(0);
         historyManager.add(firstTask);

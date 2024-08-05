@@ -51,7 +51,7 @@ class PrefilledDefaultTaskManagerTest {
      * Проверка, что изначально "заполненный" менеджер содержит 2 задачи
      */
     @Test
-    void initialDataValidation_taskManagerContainsTwoTasks() {
+    void taskManagerContainsTwoTasksAfterTestInit() {
         Assertions.assertEquals(2, taskManager.getTasks().size());
     }
 
@@ -59,7 +59,7 @@ class PrefilledDefaultTaskManagerTest {
      * Проверка, что изначально "заполненный" менеджер содержит 2 эпика
      */
     @Test
-    void initialDataValidation_taskManagerContainsTwoEpics() {
+    void taskManagerContainsTwoEpicsAfterTestInit() {
         Assertions.assertEquals(2, taskManager.getEpics().size());
     }
 
@@ -67,7 +67,7 @@ class PrefilledDefaultTaskManagerTest {
      * Проверка, что изначально "заполненный" менеджер содержит 2 подзадачи
      */
     @Test
-    void initialDataValidation_taskManagerContainsTwoSubtasks() {
+    void taskManagerContainsTwoSubtasksAfterTestInit() {
         Assertions.assertEquals(2, taskManager.getSubtasks().size());
     }
 
@@ -75,7 +75,7 @@ class PrefilledDefaultTaskManagerTest {
      * Удаление существующей задачи - менеджер возвращает true
      */
     @Test
-    void removeExistingTask_returnsTrue() {
+    void returnTrueAfterRemovingExistingTask() {
         Task taskForRemove = taskManager.getTasks().get(0);
         Assertions.assertTrue(taskManager.removeTask(taskForRemove.getId()));
     }
@@ -84,7 +84,7 @@ class PrefilledDefaultTaskManagerTest {
      * Удаление несуществующей задачи - менеджер возвращает false
      */
     @Test
-    void removeNonExistingTask_returnsFalse() {
+    void returnFalseAfterRemovingNonexistentTask() {
         Assertions.assertFalse(taskManager.removeTask(Task.DEFAULT_ID));
     }
 
@@ -92,7 +92,7 @@ class PrefilledDefaultTaskManagerTest {
      * Обновление существующей задачи - менеджер возвращает true
      */
     @Test
-    void updateExistingTask_returnsTrue() {
+    void returnsTrueAfterUpdatingExistingTask() {
         Task taskForUpdate = taskManager.getTasks().get(0);
         Assertions.assertTrue(taskManager.updateTask(taskForUpdate));
     }
@@ -101,7 +101,7 @@ class PrefilledDefaultTaskManagerTest {
      * Обновление существующей задачи со сменой статуса - в менеджере сохранена задача с обновленным статусом
      */
     @Test
-    void updateExistingTaskStatus_taskManagerContainsTaskWithCorrectState() {
+    void taskManagerContainsTaskWithCorrectStateAfterUpdating() {
         // создаем клон задачи
         Task taskForUpdate = new Task(taskManager.getTasks().get(0));
         // меняем статус
@@ -116,7 +116,7 @@ class PrefilledDefaultTaskManagerTest {
      * Проверка, что у пустого эпика статус = {@link TaskState#NEW}
      */
     @Test
-    void validateInitialEmptyEpicState_equalsNEW() {
+    void emptyEpicStateEqualsNew() {
         Epic epic = taskManager.getEpic(emptyEpic.getId());
         Assertions.assertEquals(TaskState.NEW, epic.getState());
     }
@@ -125,7 +125,7 @@ class PrefilledDefaultTaskManagerTest {
      * Проверка, что у заполненного эпика статус = {@link TaskState#NEW}
      */
     @Test
-    void validateInitialNonEmptyEpicState_equalsNEW() {
+    void nonEmptyEpicStateEqualsNew() {
         Epic epic = taskManager.getEpic(epicWithTwoSubtasks.getId());
         Assertions.assertEquals(TaskState.NEW, epic.getState());
     }
@@ -135,7 +135,7 @@ class PrefilledDefaultTaskManagerTest {
      * для эпика
      */
     @Test
-    void updateSubtaskStateToInProgress_epicStateEqualsInProgress() {
+    void epicStateEqualsInProgressAfterSubtaskStateChangedToInProgress() {
         // получение первой подзадачи эпика
         Subtask epicSubtask = taskManager.getEpicSubtasks(epicWithTwoSubtasks.getId()).get(0);
         // клонирование подзадачи
@@ -151,7 +151,7 @@ class PrefilledDefaultTaskManagerTest {
      * Перевод всех подзадач эпика в {@link TaskState#DONE} приводит к возврату статуса {@link TaskState#DONE} для эпика
      */
     @Test
-    void updateAllSubtasksStateToDone_epicStateEqualsDone() {
+    void epicStateEqualsDoneAfterSetAllSubtasksStateToDone() {
         // получение первой подзадачи эпика
         List<Subtask> subtasks = taskManager.getEpicSubtasks(epicWithTwoSubtasks.getId());
         for (Subtask subtask : subtasks) {
@@ -171,7 +171,7 @@ class PrefilledDefaultTaskManagerTest {
      * Обновление эпика с установленным извне статусом DONE не приводит к смене статуса у эпика в менеджере
      */
     @Test
-    void updateEpicStateToDone_epicStateEqualsToNew() {
+    void epicStateEqualsToNewAfterUpdateEpicWithDoneState() {
         Epic epic = new Epic(epicWithTwoSubtasks);
         // установка статуса в DONE
         epic.setState(TaskState.DONE);
@@ -185,7 +185,7 @@ class PrefilledDefaultTaskManagerTest {
      * Получение из менеджера задач 3х различных задач -> история просмотров должна содержать 3 задачи
      */
     @Test
-    void getThreeTasks_taskManagerContainsThreeTasksInHistory() {
+    void taskManagerContainsThreeTasksInHistoryAfterGetThreeTasks() {
         // для всех типов задач вызываем по одному методу get
         taskManager.getTask(taskManager.getTasks().get(0).getId());
         taskManager.getSubtask(taskManager.getSubtasks().get(0).getId());

@@ -14,6 +14,12 @@ public interface HistoryManager {
     void add(Task task);
 
     /**
+     * Удалить задачу из истории просмотра
+     * @param id идентификатор задачи
+     */
+    void remove(int id);
+
+    /**
      * Получить список просмотренных задач
      */
     List<Task> getHistory();
