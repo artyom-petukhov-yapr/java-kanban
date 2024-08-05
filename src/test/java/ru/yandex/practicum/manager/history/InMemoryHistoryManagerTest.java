@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.manager.TestTaskFactory;
+import ru.yandex.practicum.model.Task;
+
+import java.util.List;
 
 /**
  * Отдельные тесты для {@link InMemoryHistoryManager} для проверки его работы с лимитом хранения просмотров.
@@ -11,48 +14,120 @@ import ru.yandex.practicum.manager.TestTaskFactory;
  */
 public class InMemoryHistoryManagerTest {
     private InMemoryHistoryManager historyManager;
+
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         historyManager = new InMemoryHistoryManager();
     }
 
     /**
-     * Проверка, что лимит равен 10 согласно ТЗ
+     * После создания менеджера список просмотров пустой
      */
     @Test
-    void LimitEquals10() {
-        Assertions.assertEquals(10, InMemoryHistoryManager.HISTORY_LIMIT);
+    void ctor_historyIsEmpty() {
+        Assertions.assertEquals(0, historyManager.getHistory().size());
     }
 
     /**
-     * При добавлении {@link InMemoryHistoryManager#HISTORY_LIMIT} + 1 задачи в менеджер в истории сохранится только
-     * {@link InMemoryHistoryManager#HISTORY_LIMIT} задач
+     * Добавление 2х задач c одинаковым идентификатором ->
+     * список просмотров должен содержать только одну задачу
      */
     @Test
-    void add1TaskOverLimit_historyContainsOnlyLimitedCountOfTasks() {
-        for (int i = 0; i < InMemoryHistoryManager.HISTORY_LIMIT + 1; i++) {
-            historyManager.add(TestTaskFactory.createSampleTask(i));
-        }
+    void addTwoTasksWithEqualIds_historyContainsOnlyOneTask() {
+        // добавление 2х задач с ИД = 0
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+        historyManager.add(TestTaskFactory.createSampleTask(0));
 
-        Assertions.assertEquals(InMemoryHistoryManager.HISTORY_LIMIT, historyManager.getHistory().size());
+        // убеждаемся, что список просмотров содержит только одну задачу
+        Assertions.assertEquals(1, historyManager.getHistory().size());
     }
 
     /**
-     * При добавлении {@link InMemoryHistoryManager#HISTORY_LIMIT} + 1 задачи в менеджер последняя добавленная задача
-     * будет содержаться в истории в конце списка.
-     * (убеждаемся, что задача, добавленная сверх лимита хранения, сохраняется, а не игнорируется)
+     * Добавление 3х задач:
+     * - двух с одинаковым идентификатором
+     * - одной с уникальным идентификатором
+     * список просмотров должен содержать 2 задачи
      */
     @Test
-    void add1TaskOverLimit_lastTaskInHistoryHasCorrectId() {
-        for (int i = 0; i < InMemoryHistoryManager.HISTORY_LIMIT + 1; i++) {
-            historyManager.add(TestTaskFactory.createSampleTask(i));
-        }
+    void addTwoTasksWithEqualIds_historyContainsTwoTasks() {
+        // добавление 2х задач с ИД = 0
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+        historyManager.add(TestTaskFactory.createSampleTask(0));
 
-        // ожидаемый идентификатор задачи для последнего элемента в истории
-        int expectedId = InMemoryHistoryManager.HISTORY_LIMIT;
-        // фактический идентификатор задачи для последнего элемента в истории
-        int actualId = historyManager.getHistory().get(InMemoryHistoryManager.HISTORY_LIMIT - 1).getId();
+        // добавление одной задачи с ИД = 1
+        historyManager.add(TestTaskFactory.createSampleTask(1));
 
-        Assertions.assertEquals(expectedId, actualId);
+        // убеждаемся, что список просмотров содержит 2 задачи
+        Assertions.assertEquals(2, historyManager.getHistory().size());
+    }
+
+    /**
+     * Повторное добавление в историю задачи, должно приводить к удалению из истории информации о её первом просмотре
+     */
+    @Test
+    void addSameTaskTwice_1stTaskViewInfoIsRemoved() {
+        // добавление задачи с ИД = 0
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+        // добавление задачи с ИД = 1
+        historyManager.add(TestTaskFactory.createSampleTask(1));
+        // повторное добавление задачи с ИД = 0
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+
+        // убеждаемся, что ИД первой задачи в списке теперь равен 1, т.к. данные о первом просмотре задачи
+        // с ИД = 0 должны быть удалены
+        Assertions.assertEquals(1, historyManager.getHistory().get(0).getId());
+    }
+
+    /**
+     * Удаление первой задачи из истории просмотров -> список просмотров начинается со второй задачи
+     */
+    @Test
+    void removeFirstTask_historyBeginsFromNextTask() {
+        // добавление задачи с ИД = 0
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+        // добавление задачи с ИД = 1
+        historyManager.add(TestTaskFactory.createSampleTask(1));
+
+        // удаление первой задачи (ИД = 0)
+        historyManager.remove(0);
+
+        // убеждаемся, что ИД первой задачи в списке теперь равен 1
+        int firstTaskId = historyManager.getHistory().get(0).getId();
+        Assertions.assertEquals(1, firstTaskId);
+    }
+
+    /**
+     * Удаление последней задачи из истории просмотров -> список просмотров заканчивается предыдущей задачей
+     */
+    @Test
+    void removeLastTask_historyEndsWithPreviousTask() {
+        // добавление задачи с ИД = 0
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+        // добавление задачи с ИД = 1
+        historyManager.add(TestTaskFactory.createSampleTask(1));
+
+        // удаление второй задачи (ИД = 1)
+        historyManager.remove(1);
+
+        // убеждаемся, что ИД последней задачи в списке теперь равен 0
+        List<Task> history = historyManager.getHistory();
+        int lastTaskId = history.get(history.size() - 1).getId();
+        Assertions.assertEquals(0, lastTaskId);
+    }
+
+    /**
+     * Удаление задачи из середины списка
+     */
+    @Test
+    void removeTaskFromMiddle_taskIsRemoved() {
+        // добавление 3х задач с идентификаторами 0, 1, 2
+        historyManager.add(TestTaskFactory.createSampleTask(0));
+        historyManager.add(TestTaskFactory.createSampleTask(1));
+        historyManager.add(TestTaskFactory.createSampleTask(2));
+        // удаление задачи с идентификатором 1 (середина списка)
+        historyManager.remove(1);
+
+        // в списке просмотров должно остаться 2 задачи
+        Assertions.assertEquals(2, historyManager.getHistory().size());
     }
 }
