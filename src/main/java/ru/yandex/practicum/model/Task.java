@@ -56,6 +56,12 @@ public class Task {
     }
 
     public Task(String name, String description) {
+        this(DEFAULT_ID, TaskState.NEW, name, description);
+    }
+
+    public Task(int id, TaskState state, String name, String description) {
+        this.id = id;
+        this.state = state;
         this.name = name;
         this.description = description;
     }

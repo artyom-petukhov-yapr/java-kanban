@@ -1,10 +1,10 @@
-package ru.yandex.practicum.manager.task;
+package ru.yandex.practicum.manager.task.prefilled;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.manager.TestTaskFactory;
-import ru.yandex.practicum.manager.Managers;
+import ru.yandex.practicum.manager.task.TaskManager;
 import ru.yandex.practicum.model.Epic;
 import ru.yandex.practicum.model.Subtask;
 import ru.yandex.practicum.model.Task;
@@ -12,11 +12,13 @@ import ru.yandex.practicum.model.TaskState;
 
 import java.util.List;
 
+
 /**
- * Тесты для предзаполненного менеджера задач
+ * Тесты для предзаполненного менеджера задач.
+ * Чтобы не дублировать код тестов между различными реализациями {@link TaskManager}
  */
-class PrefilledDefaultTaskManagerTest {
-    TaskManager taskManager;
+abstract class TaskManagerTest<T extends TaskManager> {
+    protected T taskManager;
     /**
      * Эпик с 2ся подзадачами
      */
@@ -26,10 +28,15 @@ class PrefilledDefaultTaskManagerTest {
      */
     Epic emptyEpic;
 
+    /**
+     * Создание менеджера задач
+     */
+    protected abstract T createManager();
+
     @BeforeEach
     void beforeEach() {
         // перед каждым тестом создаем новый менеджер задач и заполняем его данными
-        taskManager = Managers.getDefault();
+        taskManager = createManager();
 
         // добавляем 2 задачи
         taskManager.addTask(TestTaskFactory.createSampleTask(0));

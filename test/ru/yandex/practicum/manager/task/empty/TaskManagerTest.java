@@ -1,22 +1,29 @@
-package ru.yandex.practicum.manager.task;
+package ru.yandex.practicum.manager.task.empty;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.manager.TestTaskFactory;
 import ru.yandex.practicum.manager.Managers;
+import ru.yandex.practicum.manager.task.TaskManager;
 import ru.yandex.practicum.model.Task;
 
 /**
- * Тесты для менеджера задач по умолчанию
+ * Тесты для менеджера задач (без предварительного заполнения).
+ * Чтобы не дублировать код тестов между различными реализациями {@link TaskManager}
  */
-class DefaultTaskManagerTest {
-    TaskManager taskManager;
+abstract class TaskManagerTest<T extends TaskManager> {
+    T taskManager;
+
+    /**
+     * Создание менеджера задач
+     */
+    protected abstract T createManager();
 
     @BeforeEach
     void beforeEach() {
         // перед каждым тестом создаем новый менеджер задач
-        taskManager = Managers.getDefault();
+        taskManager = createManager();
     }
 
     /**
