@@ -26,6 +26,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     /**
      * Конструктор
+     *
      * @param stateFile - файл для хранения состояния менеджера
      */
     FileBackedTaskManager(File stateFile) {
@@ -91,7 +92,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     /**
-     *
      * @implNote Согласно ТЗ спринта 7:
      * создайте статический метод static FileBackedTaskManager loadFromFile(File file),
      * который будет восстанавливать данные менеджера из файла при запуске программы.
@@ -201,7 +201,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public boolean removeEpic(int id) {
-        if(super.removeEpic(id)) {
+        if (super.removeEpic(id)) {
             save();
             return true;
         }
@@ -216,7 +216,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public boolean updateSubtask(Subtask subtask) {
-        if(super.updateSubtask(subtask)) {
+        if (super.updateSubtask(subtask)) {
             save();
             return true;
         }
@@ -225,7 +225,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public boolean removeSubtask(int id) {
-        if(super.removeSubtask(id)){
+        if (super.removeSubtask(id)) {
             save();
             return true;
         }
