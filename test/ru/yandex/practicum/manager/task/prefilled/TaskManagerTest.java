@@ -58,7 +58,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Проверка, что изначально "заполненный" менеджер содержит 2 задачи
      */
     @Test
-    void taskManagerContainsTwoTasksAfterTestInit() {
+    void taskManagerTwoTasks() {
         Assertions.assertEquals(2, taskManager.getTasks().size());
     }
 
@@ -66,7 +66,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Проверка, что изначально "заполненный" менеджер содержит 2 эпика
      */
     @Test
-    void taskManagerContainsTwoEpicsAfterTestInit() {
+    void taskManagerTwoEpics() {
         Assertions.assertEquals(2, taskManager.getEpics().size());
     }
 
@@ -74,7 +74,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Проверка, что изначально "заполненный" менеджер содержит 2 подзадачи
      */
     @Test
-    void taskManagerContainsTwoSubtasksAfterTestInit() {
+    void taskManagerTwoSubtasks() {
         Assertions.assertEquals(2, taskManager.getSubtasks().size());
     }
 
@@ -82,7 +82,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Удаление существующей задачи - менеджер возвращает true
      */
     @Test
-    void returnTrueAfterRemovingExistingTask() {
+    void removeCheckingExistingTask() {
         Task taskForRemove = taskManager.getTasks().get(0);
         Assertions.assertTrue(taskManager.removeTask(taskForRemove.getId()));
     }
@@ -91,7 +91,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Удаление несуществующей задачи - менеджер возвращает false
      */
     @Test
-    void returnFalseAfterRemovingNonexistentTask() {
+    void removeCheckingNonExistingTask() {
         Assertions.assertFalse(taskManager.removeTask(Task.DEFAULT_ID));
     }
 
@@ -99,7 +99,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Обновление существующей задачи - менеджер возвращает true
      */
     @Test
-    void returnsTrueAfterUpdatingExistingTask() {
+    void updateCheckingExistingTask() {
         Task taskForUpdate = taskManager.getTasks().get(0);
         Assertions.assertTrue(taskManager.updateTask(taskForUpdate));
     }
@@ -108,7 +108,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Обновление существующей задачи со сменой статуса - в менеджере сохранена задача с обновленным статусом
      */
     @Test
-    void taskManagerContainsTaskWithCorrectStateAfterUpdating() {
+    void changeTaskStateUpdate() {
         // создаем клон задачи
         Task taskForUpdate = new Task(taskManager.getTasks().get(0));
         // меняем статус
@@ -142,7 +142,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * для эпика
      */
     @Test
-    void epicStateEqualsInProgressAfterSubtaskStateChangedToInProgress() {
+    void epicStateRefreshCheckProgress() {
         // получение первой подзадачи эпика
         Subtask epicSubtask = taskManager.getEpicSubtasks(epicWithTwoSubtasks.getId()).get(0);
         // клонирование подзадачи
@@ -158,7 +158,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Перевод всех подзадач эпика в {@link TaskState#DONE} приводит к возврату статуса {@link TaskState#DONE} для эпика
      */
     @Test
-    void epicStateEqualsDoneAfterSetAllSubtasksStateToDone() {
+    void epicStateRefreshCheckDone() {
         // получение первой подзадачи эпика
         List<Subtask> subtasks = taskManager.getEpicSubtasks(epicWithTwoSubtasks.getId());
         for (Subtask subtask : subtasks) {
@@ -178,7 +178,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Обновление эпика с установленным извне статусом DONE не приводит к смене статуса у эпика в менеджере
      */
     @Test
-    void epicStateEqualsToNewAfterUpdateEpicWithDoneState() {
+    void epicStateRefresh() {
         Epic epic = new Epic(epicWithTwoSubtasks);
         // установка статуса в DONE
         epic.setState(TaskState.DONE);
@@ -192,7 +192,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
      * Получение из менеджера задач 3х различных задач -> история просмотров должна содержать 3 задачи
      */
     @Test
-    void taskManagerContainsThreeTasksInHistoryAfterGetThreeTasks() {
+    void taskManagerHistory() {
         // для всех типов задач вызываем по одному методу get
         taskManager.getTask(taskManager.getTasks().get(0).getId());
         taskManager.getSubtask(taskManager.getSubtasks().get(0).getId());

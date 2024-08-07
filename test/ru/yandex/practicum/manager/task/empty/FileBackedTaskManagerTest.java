@@ -32,7 +32,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
      * Проверка, что после сохранения пустого менеджера файл существует
      */
     @Test
-    void saveEmptyManagerToDefaultFile() {
+    void saveEmptyManager() {
         taskManager.save();
         boolean fileExists = taskManager.getStateFile().exists();
         Assertions.assertTrue(fileExists);
@@ -42,7 +42,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
      * Проверка загрузка состояния менеджера с одной задачей
      */
     @Test
-    void loadManagerWithOneTask() throws IOException {
+    void loadManagerOneTask() throws IOException {
         taskManager.addTask(TestTaskFactory.createSampleTask(0));
         taskManager.save();
 
@@ -55,7 +55,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
      * Проверка загрузка состояния менеджера с одним эпиком
      */
     @Test
-    void loadManagerWithOneEpic() throws IOException {
+    void loadManagerOneEpic() throws IOException {
         taskManager.addEpic(TestTaskFactory.createSampleEpic(0));
         taskManager.save();
 
@@ -68,7 +68,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
      * Проверка загрузка состояния менеджера с одной подзадачей
      */
     @Test
-    void loadManagerWithOneSubtask() throws IOException {
+    void loadManagerOneSubtask() throws IOException {
         Epic epic = TestTaskFactory.createSampleEpic(0);
         taskManager.addEpic(epic);
         taskManager.addSubtask(TestTaskFactory.createSampleSubtask(0, epic.getId()));
@@ -84,7 +84,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
      * подзадачи (т.к. они "восстанавливаются" отдельно по мере загрузки подзадач, а не сериализуются вместе с эпиком)
      */
     @Test
-    void loadManagerWithOneEpicWithTwoSubtasks() throws IOException {
+    void loadManagerTwoSubtasks() throws IOException {
         Epic epic = TestTaskFactory.createSampleEpic(0);
         taskManager.addEpic(epic);
         taskManager.addSubtask(TestTaskFactory.createSampleSubtask(0, epic.getId()));
