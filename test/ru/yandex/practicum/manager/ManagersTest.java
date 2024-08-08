@@ -11,7 +11,7 @@ public class ManagersTest {
      * {@link Managers#getDefault()} возвращает объект менеджера
      */
     @Test
-    void defaultManagerIsNotNull() {
+    void defaultManager() {
         Assertions.assertNotNull(Managers.getDefault());
     }
 
@@ -19,7 +19,7 @@ public class ManagersTest {
      * {@link Managers#getDefaultHistory()} возвращает объект менеджера
      */
     @Test
-    void defaultHistoryManagerIsNotNull() {
+    void defaultHistoryManager() {
         Assertions.assertNotNull(Managers.getDefaultHistory());
     }
 }
