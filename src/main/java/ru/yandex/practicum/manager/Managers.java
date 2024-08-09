@@ -20,14 +20,6 @@ public class Managers {
     }
 
     /**
-     * Получить все доступные менеджеры задач
-     * @return
-     */
-    public static List<TaskManager> getAllAvailableTaskManagers() {
-        return List.of(new FileBackedTaskManager(), new InMemoryTaskManager());
-    }
-
-    /**
      * Получить менеджер истории просмотра задач по-умолчанию
      */
     public static HistoryManager getDefaultHistory() {

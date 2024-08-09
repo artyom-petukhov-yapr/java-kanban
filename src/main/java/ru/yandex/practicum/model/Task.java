@@ -25,7 +25,7 @@ public class Task {
     /**
      * Статус задачи
      */
-    private TaskState state = TaskState.NEW;
+    private TaskState state;
 
     /**
      * Получить идентификатор
